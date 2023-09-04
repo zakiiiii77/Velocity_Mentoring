@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Location Form</title>
+        <style>
+            h1{
+                text-align: center;
+            }
+            .add{
+                padding: 10px 20px;
+                font-size: 16px;
+                border: none;
+                background: linear-gradient(to right, #ddbea9, #a5a58d);
+                color: white;
+                cursor: pointer;
+            }
+            .text{
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                outline: none;
+            }
+            .text:focus{
+                border-color: #007bff;
+                box-shadow: 0 0 5px #007bff;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Add Location</h1>
+        <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+            <label for="name">Road Name:</label>
+            <input type="text" id="name" name="name" required class="text"><br><br>
+
+            <label for="address">The velocity of the road:</label>
+            <input type="text" id="address" name="address" required class="text"><br><br>
+
+            <input type="submit" value="Add Location" class="add">
+        </form>
+    </body>
+</html>

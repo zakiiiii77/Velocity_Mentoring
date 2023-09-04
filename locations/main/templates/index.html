@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Radarak</title>
+    </head>
+    <body class="body">
+
+        <style>
+            .like-btn{
+                    background-color: #00008B;
+                    margin-top: 10px;
+
+                }
+            .dislike-btn{
+                background-color: red;
+                margin-top: 10px;
+
+            }
+            .location-name{
+                display: block;
+            }
+            .commentBox{
+                font-family: Arial, sans-serif;
+                font-weight: bold;
+                font-size: 14px;
+                background-color: white;
+                color: black;
+            }
+            .commentBtn{
+                font-family: Arial, sans-serif;
+                font-weight: bold;
+                font-size: 14px;
+                background-color: #4e92ff;
+                color: black;
+            }
+            .legend{
+                font-family: Arial, sans-serif;
+                font-weight: bold;
+                font-size: 32px;
+            }
+        </style>
+        <legend class="legend">Locations</legend> <br>
+        {% csrf_token %}
+        {% for location in locations %}
+        <tr>
+            <td>
+                {{ location.name }}
+            </td>
+            <td>
+                <button class="like-btn">Like</button>
+                {{ location.likes }}
+            </td>
+            <td>
+                <button class="dislike-btn">Dislike</button>
+                {{ location.dislikes }}
+            </td>
+            <td>
+                <form id="comment-form">
+                    <input type="text" name="text">
+                    <input type="hidden" name="location_id" value="{{ location.id }}">
+                    <button type="submit">Comment</button>
+                </form>
+            </td>
+        </tr>
+        {% for comment in location.comment_set.all %}
+            <tr>
+                <td colspan="3">{{ comment.text }}</td>
+            </tr>
+        {% endfor %}
+        <br>
+        {% endfor %}
+        <script>
+        // Use strict mode
+        'use strict';
+
+        // Like button click handler
+        document.addEventListener('click', handleLikeClick);
+
+        function handleLikeClick(e) {
+        if(!e.target.matches('.like-btn')) return;
+
+        // Get location ID
+        const locationId = getLocationId(e.target);
+
+        // Make AJAX request
+        likeLocation(locationId)
+            .then(data => updateLikeCount(locationId, data));
+        }
+
+        // Dislike button click handler
+        document.addEventListener('click', handleDislikeClick);
+
+        function handleDislikeClick(e) {
+            if(!e.target.matches('.dislike-btn')) return;
+
+            // Get location ID
+            const locationId = getLocationId(e.target);
+
+            // Make AJAX request
+            dislikeLocation(locationId)
+                .then(data => updateDisLikeCount(locationId, data));
+        }
+
+        // Comment submit handler
+        document.getElementById('comment-form')
+        .addEventListener('submit', handleCommentSubmit);
+
+        function handleCommentSubmit(e) {
+        e.preventDefault();
+
+        // Get form values
+        const locationId = getLocationIdFromForm(e.target);
+        const text = getCommentTextFromForm(e.target);
+
+        // Make AJAX request
+        submitComment(locationId, text)
+            .then(data => refreshComments(data));
+        }
+
+        // Helper functions
+        function getLocationId(element) {
+        // logic to get ID
+        }
+
+        function likeLocation(id) {
+        // AJAX request to like endpoint
+        }
+
+        function updateLikeCount(id, data) {
+        // update dom
+        }
+
+        // etc...
+        </script>
+    </body>
+</html>
